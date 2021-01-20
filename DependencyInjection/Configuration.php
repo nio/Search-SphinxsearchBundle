@@ -15,14 +15,14 @@ class Configuration implements ConfigurationInterface
 	 */
 	public function getConfigTreeBuilder()
 	{
-		$treeBuilder = new TreeBuilder();
-		$rootNode = $treeBuilder->root('sphinxsearch');
+                $builder = new TreeBuilder('sphinxsearch');
+                $rootNode = method_exists('Symfony\Component\Config\Definition\Builder\TreeBuilder', 'getRootNode') ? $builder->getRootNode() : $builder->root('sphinxsearch');
 
 		$this->addIndexerSection($rootNode);
 		$this->addIndexesSection($rootNode);
 		$this->addSearchdSection($rootNode);
 
-		return $treeBuilder;
+		return $builder;
 	}
 
 	private function addIndexerSection(ArrayNodeDefinition $node)
